@@ -26,10 +26,10 @@ At page 303 of the [reference manual](../Docs/reference_manual.pdf), one can see
 ### Set port C pin 13 as input
     To set pin 13 as input, one must set bits 26 and 27 at 0.
 
-### Read/Write from/to GPIO
-    At page 306 of the [reference manual](../Docs/reference_manual.pdf), one can see that:
-    * GPIOx_IDR is at offset 0x10.
-    * GPIOx_ODR is at offset 0x14. Then set/reset of pin 5 is done with bit 5 (OD5).
+### Read from / Write to GPIO
+At page 306 of the [reference manual](../Docs/reference_manual.pdf), one can see that:
+* GPIOx_IDR is at offset 0x10.
+* GPIOx_ODR is at offset 0x14. Then set/reset of pin 5 is done with bit 5 (OD5).
 
 ## Where is RCC
 As can be seen page 79 of the [reference manual](../Docs/reference_manual.pdf), RCC is on AHB1 with addresses 0x40021000 - 0x400213FF.
