@@ -31,44 +31,38 @@
 #define RCC_OFFSET      (0x1000U)
 #define RCC_BASE        (AHB1_BASE + RCC_OFFSET)
 
-/* Clock gating for GPIOA -> Set Bit 0 of RCC_AHB2ENR to 1 */
+/* Clock gating
+ * for GPIOA -> Set Bit 0 of RCC_AHB2ENR to 1
+ * for GPIOC -> Set Bit 2 of RCC_AHB2ENR to 1
+ */
 #define AHB2ENR_OFFSET  (0x4C)
 #define RCC_AHB2ENR     (*(volatile uint32_t*)(RCC_BASE + AHB2ENR_OFFSET))
-#define GPIOAEN         (1U)
+#define GPIOAEN         (1U<<0)
+#define GPIOCEN         (1U<<2)
 
 /* GPIOA peripheral addresses */
 #define GPIOA_OFFSET    (0x0U)
 #define GPIOA_BASE      (AHB2_BASE + GPIOA_OFFSET)
 
-/* Set GPIO mode register */
+/* GPIOA mode register */
 #define MODER_OFFSET	(0x00U)
 #define GPIOA_MODER     (*(volatile uint32_t*)(GPIOA_BASE + MODER_OFFSET))
 
-/* Set GPIO output data register */
+/* GPIOA output data register */
 #define ODR_OFFSET      (0x14U)
 #define GPIOA_ODR       (*(volatile uint32_t*)(GPIOA_BASE + ODR_OFFSET))
 
-#define DELAY           400000
+/* GPIOC peripheral addresses */
+#define GPIOC_OFFSET    (0x0800U)
+#define GPIOC_BASE      (AHB2_BASE + GPIOC_OFFSET)
 
+/* GPIOC mode register */
+#define GPIOC_MODER     (*(volatile uint32_t*)(GPIOC_BASE + MODER_OFFSET))
 
-static inline void gpioa_clock_enable() {
-	RCC_AHB2ENR |= GPIOAEN;
-}
+/* GPIOC input data register */
+#define IDR_OFFSET      (0x10U) /* page 306 of the reference manual */
+#define GPIOC_IDR       (*(volatile uint32_t*)(GPIOC_BASE + IDR_OFFSET))
 
-static inline void set_gpioa_pin5_to_output_mode() {
-	GPIOA_MODER |= (1U<<10);
-	GPIOA_MODER &= ~(1U<<11); /* Same as GPIOA_MODER ^= 0x800 */
-}
-
-static inline void toggle_led() {
-	/* LED connected to PIN 5 of GPIOA */
-	GPIOA_ODR ^= (1U<<5);
-}
-
-static inline void busy_wait(uint32_t count) {
-    while(count--)
-    	asm volatile("");
-}
 
 void reset_handler(void);
 
@@ -82,16 +76,21 @@ uint32_t *vector_table[] __attribute__((section(".isr_vector"))) =
 
 void __attribute__((noreturn, weak)) reset_handler() {
 
-	/* Clock gating: enable clock on GPIOA peripheral */
-	gpioa_clock_enable();
+	/* Enable clock on GPIOA and GPIOC peripherals */
+	RCC_AHB2ENR |= (GPIOAEN | GPIOCEN);
 
 	/* set LED pin as output */
-	set_gpioa_pin5_to_output_mode();
+	GPIOA_MODER |= (1U<<10);
+	GPIOA_MODER &= ~(1U<<11);
+
+	/* set blue button as input */
+	GPIOC_MODER &= ~((1U<<26) | (1U<<27));
 
 	while(1) {
-		toggle_led();
-
-		busy_wait(DELAY);
+		if(!(GPIOC_IDR & (1U<<13)))
+			GPIOA_ODR = (1U<<5);
+		else
+			GPIOA_ODR &= ~(1U<<5);
 	}
 
 }

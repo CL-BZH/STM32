@@ -5,5 +5,7 @@ The directory 'Docs' contains the reference manual and the datasheet for the STM
 
 ## Projects
 ### Bare_minimal
-The purpose of the project [Bare_minimal](./Bare_minimal) is to toggle the user LED of the board by setting the registers (RCC, GPIO, ...) by hand.  
-We will not use the standard start files provided by STM and write the minimal linker script. 
+The purpose of the project [Bare_minimal](./Bare_minimal) is to turn on the user LED of the board when the user button is pressed (and turn off when released).  
+We do not use the standard start files provided by STM.  
+We do not use the HAL API, but instead we set the registers according to the information found in the documents ([Nucleo user manual](./Docs/nucleo64-user_manual.pdf), [reference manual](./Docs/reference_manual.pdf) and [datasheet](./Docs/datasheet.pdf)).  
+Also, we write the minimal linker script. 
