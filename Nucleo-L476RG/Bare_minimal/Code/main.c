@@ -74,7 +74,7 @@ uint32_t *vector_table[] __attribute__((section(".isr_vector"))) =
 };
 
 
-void __attribute__((noreturn, weak)) reset_handler() {
+void __attribute__((noreturn)) reset_handler() {
 
 	/* Enable clock on GPIOA and GPIOC peripherals */
 	RCC_AHB2ENR |= (GPIOAEN | GPIOCEN);
