@@ -9,3 +9,6 @@ The purpose of the project [Bare_minimal](./Bare_minimal) is to turn on the user
 We do not use the standard start files provided by STM.  
 We do not use the HAL API, but instead we set the registers according to the information found in the documents ([Nucleo user manual](./Docs/nucleo64-user_manual.pdf), [reference manual](./Docs/reference_manual.pdf) and [datasheet](./Docs/datasheet.pdf)).  
 Also, we write the minimal linker script. 
+
+### Hello_world
+The purpose of the project [Hello_world](./Hello_world) is show how to use the **Serial Wire Output** (SWO) signal of the ARM **Serial Wire Debug** (SWD) interface to print messages (using [OpenOCD](https://openocd.org) and GDB).
