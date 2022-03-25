@@ -41,13 +41,19 @@ RCC_AHB2ENR is at offset 0x4C, bit 0 is for GPIOAEN and bit 2 is for GPIOCEN (se
 ## Linker script
 The linker script is kept to the minimum since all we need is the code section in flash memory and the stack in RAM.
 
-> Note: the linker script is named "LinkerScript.ld" since it is the name expected by STM32CubeIDE. If you rename it then do not forget to change the path in STM32CubeIDE.
+> Note: for the case you would like to build and flash using STM32CubeIDE (see section "**Compiling and flashing the board**" below) the linker script is named `LinkerScript.ld` since it is the name expected by STM32CubeIDE. If you rename it then do not forget to change the path in STM32CubeIDE.
 
 ## Reset Handler
 The reset handler only contains the code for reading the button state and turning on/off the LED.
 
 ## Compiling and flashing the board
-For the moment the compilation is done in STM32CubeIDE (*using gcc*) and flashing the board is also done with STM32CubeIDE.
+You have 2 options:  
+- Building with Make and flashing with STLINK
+- Building and flashing with STM32CubeIDE
+### Option 1: Building with Make and flashing with STLINK
+
+### Option 2: Building and flashing with STM32CubeIDE
+Create an empty project in STM32CubeIDE and add files `main.c` and `LinkerScript.ld` in it.
 
 > Note: when creating the project in STM32CubeIDE for the build make sure to not include the standard start files.  
 ![GCC Config](../Images/gcc_config.png)
