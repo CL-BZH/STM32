@@ -39,8 +39,7 @@ C_SRC    = main.c
 
 # Objects
 OBJS_DIR  = ./Obj
-OBJS = $(AS_SRC:%.s=%.o)
-OBJS += $(C_SRC:%.c=%.o)
+OBJS = $(C_SRC:%.c=%.o)
 
 
 .PHONY: all
