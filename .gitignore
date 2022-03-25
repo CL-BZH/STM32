@@ -1,2 +1,6 @@
 # Ignore MacOS file for finder
 .DS_Store
+*~
+*.elf
+*.bin
+*.o
