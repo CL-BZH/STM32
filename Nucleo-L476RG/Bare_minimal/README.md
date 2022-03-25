@@ -48,11 +48,24 @@ The reset handler only contains the code for reading the button state and turnin
 
 ## Compiling and flashing the board
 You have 2 options:  
-- Building with Make and flashing with STLINK
-- Building and flashing with STM32CubeIDE
-### Option 1: Building with Make and flashing with STLINK
+- Building with Make and flashing with [STLINK](https://github.com/stlink-org/stlink)
 
-### Option 2: Building and flashing with STM32CubeIDE
+- Building and flashing with [STM32CubeIDE](https://www.st.com/en/development-tools/stm32cubeide.html)
+
+### Option 1: Building with Make and flashing with [STLINK](https://github.com/stlink-org/stlink)
+#### Compilation
+In your terminal, from the directory **Bare_minimal** enter the commands below.
+```bash
+make clean
+make
+```
+#### Flashing
+Once you have installed [STLINK](https://github.com/stlink-org/stlink) run the command below (still in the directory **Bare_minimal**).
+```bash
+st-util
+```
+
+### Option 2: Building and flashing with [STM32CubeIDE](https://www.st.com/en/development-tools/stm32cubeide.html)
 Create an empty project in STM32CubeIDE and add files `main.c` and `LinkerScript.ld` in it.
 
 > Note: when creating the project in STM32CubeIDE for the build make sure to not include the standard start files.  
