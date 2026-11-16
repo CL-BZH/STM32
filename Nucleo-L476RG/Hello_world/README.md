@@ -11,7 +11,7 @@ make
 Connect the board to the PC.
 1. Start [OpenOCD](https://openocd.org) using the configuration file `debug.cfg` in one terminal in the `Hello_world` directory.
     ```bash
-    openocd -f debug.cgf
+    openocd -f debug.cfg
     ```
 
 2. In another terminal start the GDB client in the `Hello_world` directory.
